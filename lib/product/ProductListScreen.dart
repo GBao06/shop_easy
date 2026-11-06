@@ -84,6 +84,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 214,
       category: 'Vợt cầu lông',
       imageUrl: 'assets/images/products/votcau_long_yonex_astrox_88d_pro.jpg',
+      description: 'Vợt cầu lông Yonex Astrox 88D Pro, thiết kế cho người chơi tấn công, giúp tăng tốc độ và sức mạnh cú đánh.',
     ),
     Product(
       id: '2',
@@ -94,6 +95,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 98,
       category: 'Vợt cầu lông',
       imageUrl: 'assets/images/products/Victor_Thruster_K12.png',
+      description: 'Vợt cầu lông Victor Thruster K12, thiết kế mạnh mẽ, phù hợp cho người chơi tấn công.',
     ),
 
     // --- ÁO CẦU LÔNG ---
@@ -106,6 +108,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 56,
       category: 'Áo cầu lông',
       imageUrl: 'assets/images/products/aocaulongyonex.jpg',
+      description: 'Áo cầu lông Yonex Nam thoáng khí, chất liệu nhẹ, phù hợp cho các trận đấu và luyện tập.',
     ),
     Product(
       id: '4',
@@ -116,6 +119,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 34,
       category: 'Áo cầu lông',
       imageUrl: 'assets/images/products/aolining.jpg',
+      description: 'Áo cầu lông Li-Ning chính hãng, chất liệu thoáng khí, phù hợp cho các trận đấu và luyện tập.',
     ),
 
     // --- QUẦN CẦU LÔNG ---
@@ -128,6 +132,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 45,
       category: 'Quần cầu lông',
       imageUrl: 'assets/images/products/quanyonexchinhhang.jpg',
+      description: 'Quần thun thể thao Yonex co giãn, thoáng khí, phù hợp cho cầu lông và các hoạt động thể thao khác.',
     ),
     Product(
       id: '6',
@@ -138,6 +143,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 29,
       category: 'Quần cầu lông',
       imageUrl: 'assets/images/products/quanvictor.jpg',
+      description: 'Quần đùi cầu lông Victor màu đen, chất liệu nhẹ, thoáng khí, thích hợp cho các trận đấu và luyện tập.',
     ),
 
     // --- GIÀY CẦU LÔNG ---
@@ -150,6 +156,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 112,
       category: 'Giày cầu lông',
       imageUrl: 'assets/images/products/Yonex_Power_Cushion_65Z3.jpg',
+      description: 'Giày cầu lông Yonex Power Cushion 65Z3 với công nghệ Power Cushion giúp giảm chấn và tăng độ nảy, mang lại sự thoải mái tối đa khi chơi.',
     ),
     Product(
       id: '8',
@@ -160,6 +167,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       reviewCount: 87,
       category: 'Giày cầu lông',
       imageUrl: 'assets/images/products/Victor_P9200.jpg',
+      description: 'Giày cầu lông Victor P9200 với thiết kế chống lật cổ chân, mang lại sự ổn định và thoải mái trong các trận đấu.',
     ),
   ];
 
@@ -181,11 +189,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       // 1. AppBar tiêu đề + Nút Tìm kiếm & Giỏ hàng có Badge
       appBar: AppBar(
-        title: const Text('ShopEasy', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF203D67),
+        title: const Text('ShopEasy'),
         actions: [
+          // Nút Tìm kiếm (hiện tại chưa có chức năng)
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
+            icon: const Icon(Icons.search),
             onPressed: () {},
           ),
           Padding(
@@ -196,7 +204,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
               child: IconButton(
                 icon: const Icon(
                   Icons.shopping_cart_outlined,
-                  color: Colors.white,
                 ),
                 onPressed: _openCartScreen, // Gọi hàm mở giỏ hàng
               ),
@@ -219,6 +226,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   _searchQuery = value;
                 });
               },
+            
               decoration: InputDecoration(
                 hintText: 'Tìm sản phẩm...',
                 prefixIcon: const Icon(Icons.search),

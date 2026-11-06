@@ -5,6 +5,7 @@ class Product {
   final double? originalPrice; // null = không giảm giá
   final String category;
   final String imageUrl;
+  final String description;
   final double rating;
   final int reviewCount;
 
@@ -15,6 +16,7 @@ class Product {
     this.originalPrice,
     required this.category,
     required this.imageUrl,
+    required this.description,
     this.rating = 0,
     this.reviewCount = 0,
   });
