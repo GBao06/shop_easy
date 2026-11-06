@@ -269,8 +269,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            // 🛠 SỬA TẠI ĐÂY: Giảm tỉ lệ Rộng/Cao xuống 0.50 hoặc 0.52 để ô cao hơn
-                            childAspectRatio: 0.55,
+                            mainAxisExtent: 320, // chiều cao cố định mỗi ô
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
                           ),
