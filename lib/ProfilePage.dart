@@ -128,8 +128,8 @@ class ProfilePage extends StatelessWidget {
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.black87,
-                                side: BorderSide(color: Colors.grey.shade400),
+                                // foregroundColor: Colors.black87,
+                                // side: BorderSide(color: Colors.grey.shade400),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),

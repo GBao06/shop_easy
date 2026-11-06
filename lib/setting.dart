@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_easy/dashboard/DashboardScreen.dart';
 
 import 'ProfilePage.dart';
-import 'theme_controller.dart';
+import 'theme/theme_controller.dart';
 import 'login.dart';
 
 class SettingPage extends StatefulWidget {
@@ -15,6 +15,59 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   bool nhanThongBao = true;
   bool dongBo = true;
+
+  // Trong _SettingPageState của file setting.dart
+
+  // 1. Viết hàm hiển thị Dialog chọn cỡ chữ
+  void _showFontSizeDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ValueListenableBuilder<double>(
+          valueListenable: textScaleNotifier,
+          builder: (context, currentScale, child) {
+            return AlertDialog(
+              title: const Text('Chọn cỡ chữ'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RadioListTile<double>(
+                    title: const Text('Nhỏ'),
+                    value: 0.85,
+                    // ignore: deprecated_member_use
+                    groupValue: currentScale,
+                    // ignore: deprecated_member_use
+                    onChanged: (value) {
+                      textScaleNotifier.value = value!;
+                      Navigator.pop(context);
+                    },
+                  ),
+                  RadioListTile<double>(
+                    title: const Text('Vừa (Mặc định)'),
+                    value: 1.0,
+                    groupValue: currentScale,
+                    onChanged: (value) {
+                      textScaleNotifier.value = value!;
+                      Navigator.pop(context);
+                    },
+                  ),
+                  RadioListTile<double>(
+                    title: const Text('Lớn'),
+                    value: 1.15,
+                    groupValue: currentScale,
+                    onChanged: (value) {
+                      textScaleNotifier.value = value!;
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   Widget switchItem(
     IconData icon,
@@ -123,7 +176,6 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SafeArea(
         child: Column(
           children: [
@@ -214,26 +266,15 @@ class _SettingPageState extends State<SettingPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListTile(
-                      leading: const Icon(
-                        Icons.bar_chart_rounded,
-
-                        size: 28,
-                      ),
+                      leading: const Icon(Icons.bar_chart_rounded, size: 28),
                       title: const Text(
                         'Thống kê & Tổng quan',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-  
-                        ),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: const Text(
                         'Doanh thu, số lượng đơn hàng & báo cáo',
                       ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-
-                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                       onTap: () {
                         // 🛠 3. Chuyển sang màn hình DashboardScreen khi bấm vào
                         Navigator.push(
@@ -267,7 +308,10 @@ class _SettingPageState extends State<SettingPage> {
                   }),
                   const Divider(height: 1),
                   settingItem(Icons.text_fields, 'Cỡ chữ', () {
-                    print('Chọn cỡ chữ');
+                    // print('Chọn cỡ chữ');
+                    settingItem(Icons.text_fields, 'Cỡ chữ', () {
+                      _showFontSizeDialog(); // <-- Gọi hàm hiển thị dialog khi bấm vào
+                    });
                   }),
                   const Divider(height: 1),
                   settingItem(Icons.info_outline, 'Về ứng dụng', () {
