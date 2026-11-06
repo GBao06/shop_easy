@@ -35,79 +35,74 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 1 & 2. Khối Ảnh + Nhãn Giảm Giá + Nút Yêu Thích
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
+          Expanded(
+            child: Stack(
+              fit: StackFit.expand, // lấp đầy khung
+              children: [
+                Image.asset(
+                  imageUrl,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey.shade200,
+                    child: const Icon(
+                      Icons.image,
+                      size: 40,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
-                child: AspectRatio(
-                  aspectRatio: 1, // Giữ khung ảnh tỉ lệ vuông 1:1
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: Colors.grey.shade200,
-                      child: const Icon(
-                        Icons.image,
-                        size: 40,
-                        color: Colors.grey,
+
+                // Nhãn giảm giá (chỉ hiện khi có giảm)
+                if (discount != null)
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '-$discount%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
 
-              // Nhãn phần trăm giảm giá ở góc trên trái
-              if (discount != null)
+                // Nút yêu thích
                 Positioned(
                   top: 8,
-                  left: 8,
+                  right: 8,
                   child: Container(
-                    /* giữ nguyên decoration */
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 3,
+                    width: 32,
+                    height: 32,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-
-                    child: Text(
-                      '-$discount%',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                      ) /* giữ style */,
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      iconSize: 18,
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.grey.shade600,
+                      ),
+                      onPressed: onFavoriteToggle,
                     ),
                   ),
                 ),
-
-              // Nút yêu thích hình tròn góc trên phải
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    iconSize: 18,
-                    icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: isFavorite ? Colors.red : Colors.grey.shade600,
-                    ),
-                    onPressed: onFavoriteToggle,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
 
           // Khối thông tin bên dưới
@@ -137,11 +132,23 @@ class ProductCard extends StatelessWidget {
                     Row(
                       children: List.generate(5, (index) {
                         if (index < product.rating.floor()) {
-                          return const Icon(Icons.star, size: 12, color: Colors.amber);
+                          return const Icon(
+                            Icons.star,
+                            size: 12,
+                            color: Colors.amber,
+                          );
                         } else if (index < product.rating) {
-                          return const Icon(Icons.star_half, size: 12, color: Colors.amber);
+                          return const Icon(
+                            Icons.star_half,
+                            size: 12,
+                            color: Colors.amber,
+                          );
                         } else {
-                          return const Icon(Icons.star_border, size: 12, color: Colors.grey);
+                          return const Icon(
+                            Icons.star_border,
+                            size: 12,
+                            color: Colors.grey,
+                          );
                         }
                       }),
                     ),
@@ -175,7 +182,8 @@ class ProductCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6),
                     // Giá gốc (nếu có)
-                    if (product.originalPrice != null && original! > product.price)
+                    if (product.originalPrice != null &&
+                        original! > product.price)
                       Text(
                         formatPrice(original),
                         style: const TextStyle(
