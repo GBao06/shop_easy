@@ -38,6 +38,12 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             colorSchemeSeed: const Color(0xFF203D67),
             scaffoldBackgroundColor: const Color(0xFF121212),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Color(
+                0xFF1B2A44,
+              ), // xanh đậm hơn, dịu mắt trong chế độ tối
+              foregroundColor: Colors.white,
+            ),
             cardTheme: const CardThemeData(color: Color(0xFF1E1E1E)),
           ),
 

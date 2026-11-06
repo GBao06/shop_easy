@@ -14,7 +14,6 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   bool nhanThongBao = true;
-  bool cheDoToi = false;
   bool dongBo = true;
 
   Widget switchItem(
@@ -35,7 +34,7 @@ class _SettingPageState extends State<SettingPage> {
     return ListTile(
       leading: Icon(icon),
       title: Text(title),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+      trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
   }
@@ -51,7 +50,7 @@ class _SettingPageState extends State<SettingPage> {
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
       subtitle: const Text('Xem hồ sơ cá nhân'),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+      trailing: const Icon(Icons.chevron_right),
       onTap: () {
         Navigator.push(
           context,
@@ -124,7 +123,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+
       body: SafeArea(
         child: Column(
           children: [
@@ -204,29 +203,27 @@ class _SettingPageState extends State<SettingPage> {
                       dongBo = value;
                     });
                   }),
+                  // thong ke tong quan
                   Card(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 4,
                     ),
                     elevation: 1,
-                    color: Colors
-                        .indigo
-                        .shade50, // Tô nền nổi bật cho mục thống kê
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ListTile(
                       leading: const Icon(
                         Icons.bar_chart_rounded,
-                        color: Color(0xFF203D67),
+
                         size: 28,
                       ),
                       title: const Text(
                         'Thống kê & Tổng quan',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF203D67),
+  
                         ),
                       ),
                       subtitle: const Text(
@@ -235,7 +232,7 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
-                        color: Color(0xFF203D67),
+
                       ),
                       onTap: () {
                         // 🛠 3. Chuyển sang màn hình DashboardScreen khi bấm vào

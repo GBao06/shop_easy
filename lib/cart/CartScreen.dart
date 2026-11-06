@@ -39,7 +39,10 @@ class _CartScreenState extends State<CartScreen> {
 
   // Các hàm tính tiền và xử lý giữ nguyên...
   double get _subtotal {
-    return _cartItems.fold(0, (sum, item) => sum + (item.price * item.quantity));
+    return _cartItems.fold(
+      0,
+      (sum, item) => sum + (item.price * item.quantity),
+    );
   }
 
   double get _shippingFee {
@@ -56,8 +59,9 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {
       _cartItems.removeAt(index);
     });
-
+    // Hiển thị SnackBar thông báo đã xóa sản phẩm
     ScaffoldMessenger.of(context).clearSnackBars();
+    // Hiển thị SnackBar thông báo đã xóa sản phẩm
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Đã xóa "${removedItem.name}"'),
@@ -92,26 +96,30 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Scaffold hiển thị giỏ hàng
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF203D67),
-        foregroundColor: Colors.white,
         title: Text('Giỏ hàng (${_cartItems.length})'),
         elevation: 0,
       ),
+      // Hiển thị danh sách sản phẩm hoặc thông báo giỏ hàng trống
       body: _cartItems.isEmpty ? _buildEmptyCart() : _buildCartList(),
     );
   }
 
   Widget _buildEmptyCart() {
+    // Hiển thị khi giỏ hàng trống
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.shopping_cart_outlined, size: 100, color: Colors.grey.shade400),
+            Icon(
+              Icons.shopping_cart_outlined,
+              size: 100,
+              color: Colors.grey.shade400,
+            ),
             const SizedBox(height: 16),
             const Text(
               'Giỏ hàng của bạn đang trống',
@@ -128,10 +136,18 @@ class _CartScreenState extends State<CartScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF203D67),
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 12,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-              child: const Text('Tiếp tục mua sắm', style: TextStyle(fontSize: 16)),
+              child: const Text(
+                'Tiếp tục mua sắm',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ],
         ),
@@ -140,14 +156,17 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildCartList() {
+    // Hiển thị danh sách sản phẩm trong giỏ hàng
     return Column(
       children: [
+        // Danh sách sản phẩm trong giỏ
         Expanded(
           child: ListView.builder(
             itemCount: _cartItems.length,
             padding: const EdgeInsets.all(10),
             itemBuilder: (context, index) {
               final item = _cartItems[index];
+              // Widget cho mỗi mục trong danh sách
               return Dismissible(
                 key: Key(item.id),
                 direction: DismissDirection.endToStart,
@@ -159,16 +178,25 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.delete, color: Colors.white, size: 28),
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                 ),
                 onDismissed: (direction) => _removeItem(index),
+                // Child widget for the list item
                 child: Card(
                   margin: const EdgeInsets.symmetric(vertical: 6),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
+                    // Widget con cho mỗi mục trong danh sách
                     child: Row(
                       children: [
+                        // Ảnh sản phẩm
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: Image.asset(
@@ -177,10 +205,15 @@ class _CartScreenState extends State<CartScreen> {
                             height: 70,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
-                                Container(width: 70, height: 70, color: Colors.grey.shade200),
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  color: Colors.grey.shade200,
+                                ),
                           ),
                         ),
                         const SizedBox(width: 12),
+                        // Thông tin sản phẩm và số lượng
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,9 +222,13 @@ class _CartScreenState extends State<CartScreen> {
                                 item.name,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
                               ),
                               const SizedBox(height: 6),
+                              // Giá sản phẩm
                               Text(
                                 formatPrice(item.price),
                                 style: const TextStyle(
@@ -203,28 +240,44 @@ class _CartScreenState extends State<CartScreen> {
                             ],
                           ),
                         ),
+                        // Widget điều chỉnh số lượng
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Theme.of(context).dividerColor),
+                            border: Border.all(
+                              color: Theme.of(context).dividerColor,
+                            ),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
                             children: [
+                              // Nút giảm số lượng
                               IconButton(
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
                                 padding: EdgeInsets.zero,
                                 icon: const Icon(Icons.remove, size: 16),
                                 onPressed: () => _decrementQuantity(index),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
                                 child: Text(
                                   '${item.quantity}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
+                              // Nút tăng số lượng
                               IconButton(
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
                                 padding: EdgeInsets.zero,
                                 icon: const Icon(Icons.add, size: 16),
                                 onPressed: () => _incrementQuantity(item),
@@ -240,46 +293,63 @@ class _CartScreenState extends State<CartScreen> {
             },
           ),
         ),
+        // phan tam tinh va thanh toan
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, -3),
               ),
             ],
           ),
+          // Widget hiển thị tạm tính, phí vận chuyển và tổng cộng
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Tạm tính:', style: TextStyle(color: Colors.grey)),
-                  Text(formatPrice(_subtotal), style: const TextStyle(fontWeight: FontWeight.w500)),
+                  Text(
+                    formatPrice(_subtotal),
+                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
+              // Phí vận chuyển
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Phí vận chuyển:', style: TextStyle(color: Colors.grey)),
+                  const Text(
+                    'Phí vận chuyển:',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   Text(
                     _shippingFee == 0 ? 'Miễn phí' : formatPrice(_shippingFee),
                     style: TextStyle(
-                      color: _shippingFee == 0 ? const Color.fromARGB(255, 255, 0, 0) : Theme.of(context).colorScheme.onSurface,
-                      fontWeight: _shippingFee == 0 ? FontWeight.bold : FontWeight.w500,
+                      color: _shippingFee == 0
+                          ? const Color.fromARGB(255, 255, 0, 0)
+                          : Theme.of(context).colorScheme.onSurface,
+                      fontWeight: _shippingFee == 0
+                          ? FontWeight.bold
+                          : FontWeight.w500,
                     ),
                   ),
                 ],
               ),
               const Divider(height: 20),
+              // Tổng cộng
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Tổng cộng:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Tổng cộng:',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                   Text(
                     formatPrice(_total),
                     style: const TextStyle(
@@ -291,6 +361,7 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
               const SizedBox(height: 12),
+              // Nút Thanh toán
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -299,9 +370,14 @@ class _CartScreenState extends State<CartScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF203D67),
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                  child: const Text('Thanh toán', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'Thanh toán',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],

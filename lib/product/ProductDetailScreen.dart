@@ -16,8 +16,6 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chi tiết sản phẩm'),
-        backgroundColor: const Color(0xFF203D67),
-        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -78,9 +76,13 @@ class ProductDetailScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    product.description,
+                    style: const TextStyle( height: 1.4),
+                  ),
                   const Text(
                     'Sản phẩm chính hãng, bảo hành 12 tháng. Hỗ trợ đổi trả trong vòng 7 ngày nếu có lỗi từ nhà sản xuất.',
-                    style: TextStyle(color: Colors.black87, height: 1.4),
+                    style: TextStyle( height: 1.4),
                   ),
                 ],
               ),
@@ -92,9 +94,12 @@ class ProductDetailScreen extends StatelessWidget {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface, // thay Colors.white
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05), // thay withOpacity
+              blurRadius: 5,
+            ),
           ],
         ),
         child: ElevatedButton(

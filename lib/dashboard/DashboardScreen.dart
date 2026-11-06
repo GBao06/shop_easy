@@ -63,11 +63,8 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         title: const Text('Tổng quan'),
-        backgroundColor: const Color(0xFF203D67),
-        foregroundColor: Colors.white,
         elevation: 0,
       ),
       // 2. Dùng LayoutBuilder để tự động đáp ứng responsive
