@@ -83,7 +83,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.8,
       reviewCount: 214,
       category: 'Vợt cầu lông',
-      imageUrl: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lwvkqk6bvljv17',
+      imageUrl: 'assets/images/products/votcau_long_yonex_astrox_88d_pro.jpg',
     ),
     Product(
       id: '2',
@@ -93,7 +93,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.5,
       reviewCount: 98,
       category: 'Vợt cầu lông',
-      imageUrl: 'https://tse2.mm.bing.net/th/id/OIP.N7YfIGIOsN2N_5DZhuT6cAHaJ4?r=0&w=810&h=1080&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/Victor_Thruster_K12.png',
     ),
 
     // --- ÁO CẦU LÔNG ---
@@ -105,7 +105,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.2,
       reviewCount: 56,
       category: 'Áo cầu lông',
-      imageUrl: 'https://tse3.mm.bing.net/th/id/OIP.E1ekaf5DSIw8sQpmRMQUpwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/aocaulongyonex.jpg',
     ),
     Product(
       id: '4',
@@ -115,7 +115,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.0,
       reviewCount: 34,
       category: 'Áo cầu lông',
-      imageUrl: 'https://tse4.mm.bing.net/th/id/OIP.-UtoqNOa8Tt-MVwZFkR-9QHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/aolining.jpg',
     ),
 
     // --- QUẦN CẦU LÔNG ---
@@ -127,7 +127,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.3,
       reviewCount: 45,
       category: 'Quần cầu lông',
-      imageUrl: 'https://tse1.mm.bing.net/th/id/OIP.HEBs5WUqulrtBzm5WuBHbQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/quanyonexchinhhang.jpg',
     ),
     Product(
       id: '6',
@@ -137,7 +137,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.1,
       reviewCount: 29,
       category: 'Quần cầu lông',
-      imageUrl: 'https://tse3.mm.bing.net/th/id/OIP.c3CpS4dTLYm317xTC0q2JwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/quanvictor.jpg',
     ),
 
     // --- GIÀY CẦU LÔNG ---
@@ -149,7 +149,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.6,
       reviewCount: 112,
       category: 'Giày cầu lông',
-      imageUrl: 'https://cdn.shopvnb.com/uploads/gallery/giay-yonex-shb-65z3-powe-2_1711940647.webp',
+      imageUrl: 'assets/images/products/Yonex_Power_Cushion_65Z3.jpg',
     ),
     Product(
       id: '8',
@@ -159,7 +159,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       rating: 4.4,
       reviewCount: 87,
       category: 'Giày cầu lông',
-      imageUrl: 'https://th.bing.com/th/id/OIP.1oi6hT7bGzpOiBDY_hoW2QHaF7?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3',
+      imageUrl: 'assets/images/products/Victor_P9200.jpg',
     ),
   ];
 
@@ -270,7 +270,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             // 🛠 SỬA TẠI ĐÂY: Giảm tỉ lệ Rộng/Cao xuống 0.50 hoặc 0.52 để ô cao hơn
-                            childAspectRatio: 0.6,
+                            childAspectRatio: 0.55,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
                           ),
