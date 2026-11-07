@@ -30,8 +30,11 @@ class MyApp extends StatelessWidget {
                   locale: locale,
                   supportedLocales: const [Locale('vi'), Locale('en')],
                   localizationsDelegates: const [
+                    // Các delegate để hỗ trợ đa ngôn ngữ
                     GlobalMaterialLocalizations.delegate,
+                    // Các delegate khác nếu cần
                     GlobalWidgetsLocalizations.delegate,
+                    // Delegate cho Cupertino (iOS style)
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   // Giao diện Sáng (Light Mode)
