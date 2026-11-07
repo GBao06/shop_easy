@@ -66,7 +66,7 @@ class _CartScreenState extends State<CartScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đã xóa "${removedItem.name}"'),
+        content: Text(s.del + " ${removedItem.name}"),
         action: SnackBarAction(
           label: s.undo,
           textColor: const Color.fromARGB(255, 255, 59, 59),

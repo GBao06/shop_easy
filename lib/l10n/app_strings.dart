@@ -52,8 +52,12 @@ class AppStrings {
     'revenue': 'Doanh thu',
     'customers': 'Khách hàng',
     'products': 'Sản phẩm',
-    'recentorders':'Đơn hàng gần đây',
-    'viewall': 'Xem tất cả'
+    'recentorders': 'Đơn hàng gần đây',
+    'viewall': 'Xem tất cả',
+    'opencart': 'Xem giỏ',
+    'added': 'Đã thêm',
+    'toyourcart': 'vào giỏ hàng!',
+    'deleted':'Đã xóa ',
   };
 
   static const _en = {
@@ -99,8 +103,12 @@ class AppStrings {
     'revenue': 'Revenue',
     'customers': 'Customers',
     'products': 'Products',
-    'recentorders':'Recent Orders',
-    'viewall': 'View all'
+    'recentorders': 'Recent Orders',
+    'viewall': 'View all',
+    'opencart': 'Open Cart',
+    'added': 'Added',
+    'toyourcart': 'to your cart!',
+    'deleted':'Deleted',
   };
 
   String _t(String key) => (_code == 'en' ? _en : _vi)[key] ?? key;
@@ -134,7 +142,7 @@ class AppStrings {
   String get productDescription => _t('productDescription');
   String get undo => _t('undo');
   String get isempty => _t('isempty');
-  String get isempty2 => _t('isempy2');
+  String get isempty2 => _t('isempty2');
   String get continueShopping => _t('Continue shopping');
   String get subtotal => _t('subtotal');
   String get shipping => _t('shipping');
@@ -150,4 +158,8 @@ class AppStrings {
   String get products => _t('products');
   String get recent => _t('recentorders');
   String get viewall => _t('viewall');
+  String get opencart => _t('opencart');
+   String get added => _t('added');
+   String get toyourcart => _t('toyourcart');
+   String get del => _t('deleted');
 }

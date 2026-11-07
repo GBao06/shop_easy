@@ -61,9 +61,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ..clearSnackBars()
       ..showSnackBar(
         SnackBar(
-          content: Text('Đã thêm "${product.name}" vào giỏ hàng!'),
+          content: Text(s.added+  " ${product.name} " + s.toyourcart),
           duration: const Duration(seconds: 2),
-          action: SnackBarAction(label: 'XEM GIỎ', onPressed: _openCartScreen),
+          action: SnackBarAction(label: s.opencart, onPressed: _openCartScreen),
         ),
       );
   }
