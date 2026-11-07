@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_easy/dashboard/DashboardScreen.dart';
+import 'package:shop_easy/widgets/font_size_dialog.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
+import 'package:shop_easy/widgets/language_dialog.dart';
 
 import 'ProfilePage.dart';
 import 'theme/theme_controller.dart';
@@ -16,59 +19,7 @@ class _SettingPageState extends State<SettingPage> {
   bool nhanThongBao = true;
   bool dongBo = true;
 
-  // Trong _SettingPageState của file setting.dart
-
-  // 1. Viết hàm hiển thị Dialog chọn cỡ chữ
-  void _showFontSizeDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return ValueListenableBuilder<double>(
-          valueListenable: textScaleNotifier,
-          builder: (context, currentScale, child) {
-            return AlertDialog(
-              title: const Text('Chọn cỡ chữ'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  RadioListTile<double>(
-                    title: const Text('Nhỏ'),
-                    value: 0.85,
-                    // ignore: deprecated_member_use
-                    groupValue: currentScale,
-                    // ignore: deprecated_member_use
-                    onChanged: (value) {
-                      textScaleNotifier.value = value!;
-                      Navigator.pop(context);
-                    },
-                  ),
-                  RadioListTile<double>(
-                    title: const Text('Vừa (Mặc định)'),
-                    value: 1.0,
-                    groupValue: currentScale,
-                    onChanged: (value) {
-                      textScaleNotifier.value = value!;
-                      Navigator.pop(context);
-                    },
-                  ),
-                  RadioListTile<double>(
-                    title: const Text('Lớn'),
-                    value: 1.15,
-                    groupValue: currentScale,
-                    onChanged: (value) {
-                      textScaleNotifier.value = value!;
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
+  // Widget để tạo một mục cài đặt với Switch
   Widget switchItem(
     IconData icon,
     String title,
@@ -83,6 +34,7 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
+  // Widget để tạo một mục cài đặt thông thường
   Widget settingItem(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
       leading: Icon(icon),
@@ -92,7 +44,9 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
+  // Widget để hiển thị thông tin hồ sơ người dùng
   Widget profileItem() {
+    final s = AppStrings.of(context);
     return ListTile(
       leading: const CircleAvatar(
         radius: 25,
@@ -102,7 +56,7 @@ class _SettingPageState extends State<SettingPage> {
         'Dương Gia Bảo',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
-      subtitle: const Text('Xem hồ sơ cá nhân'),
+      subtitle: Text(s.profile),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         Navigator.push(
@@ -113,6 +67,7 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
+  // Widget để tạo nút đăng xuất
   Widget logoutButton() {
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -175,6 +130,7 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final s = AppStrings.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -193,9 +149,9 @@ class _SettingPageState extends State<SettingPage> {
                     },
                   ),
                   const SizedBox(width: 8),
-                  const Text(
-                    'Cài đặt',
-                    style: TextStyle(
+                  Text(
+                    s.settings,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -208,15 +164,17 @@ class _SettingPageState extends State<SettingPage> {
 
             Expanded(
               child: ListView(
+                // Các mục cài đặt
                 children: [
                   profileItem(),
                   const Divider(height: 1),
-                  const Padding(
+                  // Phần cài đặt thông báo, chế độ tối và đồng bộ
+                  Padding(
                     padding: EdgeInsets.all(16),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Tài khoản',
+                        s.account,
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 18,
@@ -225,9 +183,10 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     ),
                   ),
+                  // Các mục cài đặt với Switch
                   switchItem(
                     Icons.notifications_outlined,
-                    'Nhận thông báo',
+                    s.notifications,
                     nhanThongBao,
                     (value) {
                       setState(() {
@@ -236,12 +195,13 @@ class _SettingPageState extends State<SettingPage> {
                     },
                   ),
                   const Divider(height: 1),
+                  // Sử dụng ValueListenableBuilder để lắng nghe thay đổi của isDarkModeNotifier
                   ValueListenableBuilder<bool>(
                     valueListenable: isDarkModeNotifier,
                     builder: (context, isDark, child) {
                       return switchItem(
                         Icons.dark_mode_outlined,
-                        'Chế độ tối',
+                        s.darkMode,
                         isDark,
                         (value) {
                           isDarkModeNotifier.value = value;
@@ -250,7 +210,8 @@ class _SettingPageState extends State<SettingPage> {
                     },
                   ),
                   const Divider(height: 1),
-                  switchItem(Icons.sync, 'Nhớ đăng nhập', dongBo, (value) {
+                  // Mục cài đặt khác
+                  switchItem(Icons.sync, s.rememberLogin, dongBo, (value) {
                     setState(() {
                       dongBo = value;
                     });
@@ -267,12 +228,13 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                     child: ListTile(
                       leading: const Icon(Icons.bar_chart_rounded, size: 28),
-                      title: const Text(
-                        'Thống kê & Tổng quan',
+                      title: Text(
+                        s.dashboard,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: const Text(
-                        'Doanh thu, số lượng đơn hàng & báo cáo',
+                      subtitle:Text(
+                       s.revenueNumberOfOrdersReport,
+                        style: TextStyle(fontSize: 12),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                       onTap: () {
@@ -289,12 +251,12 @@ class _SettingPageState extends State<SettingPage> {
 
                   const SizedBox(height: 16),
                   const Divider(height: 1),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(16),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'CÀI ĐẶT TÀI KHOẢN',
+                        s.accountsettings,
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 12,
@@ -303,18 +265,20 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     ),
                   ),
-                  settingItem(Icons.language, 'Ngôn ngữ', () {
-                    print('Chọn ngôn ngữ');
-                  }),
+                  // Các mục cài đặt khác
+                  settingItem(
+                    Icons.language,
+                    s.language,
+                    () => showLanguageDialog(context),
+                  ),
                   const Divider(height: 1),
-                  settingItem(Icons.text_fields, 'Cỡ chữ', () {
-                    // print('Chọn cỡ chữ');
-                    settingItem(Icons.text_fields, 'Cỡ chữ', () {
-                      _showFontSizeDialog(); // <-- Gọi hàm hiển thị dialog khi bấm vào
-                    });
-                  }),
+                  settingItem(
+                    Icons.text_fields,
+                    s.fontSize,
+                    () => showFontSizeDialog(context),
+                  ),
                   const Divider(height: 1),
-                  settingItem(Icons.info_outline, 'Về ứng dụng', () {
+                  settingItem(Icons.info_outline, s.aboutapp, () {
                     print('Thông tin ứng dụng');
                   }),
                   const Divider(height: 1),

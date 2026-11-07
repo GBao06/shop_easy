@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/product/ProductCard.dart';
 import 'package:shop_easy/product/ProductDetailScreen.dart';
 import 'package:shop_easy/product/product.dart';
@@ -14,6 +15,7 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreenState extends State<ProductListScreen> {
   int _navIndex = 0;
+  AppStrings get s => AppStrings.of(context);
   String _selectedCategory = 'Tất cả';
   String _searchQuery = '';
 
@@ -186,6 +188,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final s = AppStrings.of(context);
     return Scaffold(
       // 1. AppBar tiêu đề + Nút Tìm kiếm & Giỏ hàng có Badge
       appBar: AppBar(
@@ -228,7 +231,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
               },
             
               decoration: InputDecoration(
-                hintText: 'Tìm sản phẩm...',
+                hintText: s.searchHint,
                 prefixIcon: const Icon(Icons.search),
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 border: OutlineInputBorder(

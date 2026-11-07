@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/ultis/format.dart';
+import 'package:shop_easy/utils/format.dart';
 
 // Model mô tả sản phẩm trong giỏ
 class CartItem {
