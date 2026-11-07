@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/cart/CartScreen.dart';
+import 'package:shop_easy/data/sample_products.dart';
+import 'package:shop_easy/home/category_row.dart';
+import 'package:shop_easy/home/home_header.dart';
+import 'package:shop_easy/home/promo_banner.dart';
 import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/product/ProductCard.dart';
 import 'package:shop_easy/product/ProductDetailScreen.dart';
 import 'package:shop_easy/product/product.dart';
 import 'package:shop_easy/setting.dart';
-import 'package:shop_easy/cart/CartScreen.dart'; // hoặc đường dẫn tương ứng đến file CartScreen
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -16,15 +20,16 @@ class ProductListScreen extends StatefulWidget {
 class _ProductListScreenState extends State<ProductListScreen> {
   int _navIndex = 0;
   AppStrings get s => AppStrings.of(context);
-  String _selectedCategory = 'Tất cả';
+  String _selectedCategory = Categories.all;
   String _searchQuery = '';
 
+  // Giỏ hàng (được truyền sang CartScreen theo tham chiếu)
+  final List<CartItem> _cartItems = [];
+  // Đếm số lượng sản phẩm trong giỏ hàng
   int get cartCount =>
       _cartItems.fold<int>(0, (sum, item) => sum + item.quantity);
 
-  // Khai báo danh sách giỏ hàng trong _ProductListScreenState
-  final List<CartItem> _cartItems = [];
-
+  // Thêm sản phẩm vào giỏ hàng, nếu đã có thì cộng thêm số lượng
   void _addItem(Product product, {bool increment = true}) {
     setState(() {
       final index = _cartItems.indexWhere((i) => i.id == product.id);
@@ -43,17 +48,27 @@ class _ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
+  // Mua ngay: thêm vào giỏ hàng (nếu chưa có) và mở màn hình giỏ hàng
   void _buyNow(Product product) {
-    _addItem(product, increment: false); // đã có thì không cộng thêm
-    _openCartScreen(); // tái dùng hàm có sẵn
+    _addItem(product, increment: false);
+    _openCartScreen();
   }
 
+  // Thêm sản phẩm vào giỏ hàng và hiển thị SnackBar
   void _addToCart(Product product) {
     _addItem(product);
-    // giữ nguyên phần SnackBar
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text('Đã thêm "${product.name}" vào giỏ hàng!'),
+          duration: const Duration(seconds: 2),
+          action: SnackBarAction(label: 'XEM GIỎ', onPressed: _openCartScreen),
+        ),
+      );
   }
 
-  // Hàm chuyển sang CartScreen và tự cập nhật lại số lượng giỏ hàng khi quay về
+  // Mở giỏ hàng và cập nhật lại badge khi quay về
   void _openCartScreen() {
     Navigator.push(
       context,
@@ -61,267 +76,131 @@ class _ProductListScreenState extends State<ProductListScreen> {
         builder: (context) => CartScreen(cartItems: _cartItems),
       ),
     ).then((_) {
-      // Cập nhật lại giao diện badge sau khi người dùng quay lại từ màn hình giỏ hàng
-      setState(() {});
+      if (mounted) setState(() {});
     });
   }
 
-  final List<String> _categories = [
-    'Tất cả',
-    'Vợt cầu lông',
-    'Áo cầu lông',
-    'Quần cầu lông',
-    'Giày cầu lông',
-  ];
-
-  // Dữ liệu sản phẩm mẫu
-  final List<Product> _allProducts = [
-    // --- VỢT CẦU LÔNG ---
-    Product(
-      id: '1',
-      name: 'Vợt cầu lông Yonex Astrox 88D Pro',
-      price: 3950000,
-      originalPrice: 4500000,
-      rating: 4.8,
-      reviewCount: 214,
-      category: 'Vợt cầu lông',
-      imageUrl: 'assets/images/products/votcau_long_yonex_astrox_88d_pro.jpg',
-      description: 'Vợt cầu lông Yonex Astrox 88D Pro, thiết kế cho người chơi tấn công, giúp tăng tốc độ và sức mạnh cú đánh.',
-    ),
-    Product(
-      id: '2',
-      name: 'Vợt cầu lông Victor Thruster K12',
-      price: 2850000,
-      originalPrice: 3200000,
-      rating: 4.5,
-      reviewCount: 98,
-      category: 'Vợt cầu lông',
-      imageUrl: 'assets/images/products/Victor_Thruster_K12.png',
-      description: 'Vợt cầu lông Victor Thruster K12, thiết kế mạnh mẽ, phù hợp cho người chơi tấn công.',
-    ),
-
-    // --- ÁO CẦU LÔNG ---
-    Product(
-      id: '3',
-      name: 'Áo cầu lông Yonex Nam thoáng khí',
-      price: 450000,
-      originalPrice: 500000,
-      rating: 4.2,
-      reviewCount: 56,
-      category: 'Áo cầu lông',
-      imageUrl: 'assets/images/products/aocaulongyonex.jpg',
-      description: 'Áo cầu lông Yonex Nam thoáng khí, chất liệu nhẹ, phù hợp cho các trận đấu và luyện tập.',
-    ),
-    Product(
-      id: '4',
-      name: 'Áo cầu lông Li-Ning chính hãng',
-      price: 380000,
-      // originalPrice: 420000,
-      rating: 4.0,
-      reviewCount: 34,
-      category: 'Áo cầu lông',
-      imageUrl: 'assets/images/products/aolining.jpg',
-      description: 'Áo cầu lông Li-Ning chính hãng, chất liệu thoáng khí, phù hợp cho các trận đấu và luyện tập.',
-    ),
-
-    // --- QUẦN CẦU LÔNG ---
-    Product(
-      id: '5',
-      name: 'Quần thun thể thao Yonex co giãn',
-      price: 290000,
-      originalPrice: 320000,
-      rating: 4.3,
-      reviewCount: 45,
-      category: 'Quần cầu lông',
-      imageUrl: 'assets/images/products/quanyonexchinhhang.jpg',
-      description: 'Quần thun thể thao Yonex co giãn, thoáng khí, phù hợp cho cầu lông và các hoạt động thể thao khác.',
-    ),
-    Product(
-      id: '6',
-      name: 'Quần đùi cầu lông Victor đen',
-      price: 320000,
-      originalPrice: 350000,
-      rating: 4.1,
-      reviewCount: 29,
-      category: 'Quần cầu lông',
-      imageUrl: 'assets/images/products/quanvictor.jpg',
-      description: 'Quần đùi cầu lông Victor màu đen, chất liệu nhẹ, thoáng khí, thích hợp cho các trận đấu và luyện tập.',
-    ),
-
-    // --- GIÀY CẦU LÔNG ---
-    Product(
-      id: '7',
-      name: 'Giày cầu lông Yonex Power Cushion 65Z3',
-      price: 2990000,
-      originalPrice: 3500000,
-      rating: 4.6,
-      reviewCount: 112,
-      category: 'Giày cầu lông',
-      imageUrl: 'assets/images/products/Yonex_Power_Cushion_65Z3.jpg',
-      description: 'Giày cầu lông Yonex Power Cushion 65Z3 với công nghệ Power Cushion giúp giảm chấn và tăng độ nảy, mang lại sự thoải mái tối đa khi chơi.',
-    ),
-    Product(
-      id: '8',
-      name: 'Giày cầu lông Victor P9200 chống lật cổ chân',
-      price: 2450000,
-      // originalPrice: 2800000,
-      rating: 4.4,
-      reviewCount: 87,
-      category: 'Giày cầu lông',
-      imageUrl: 'assets/images/products/Victor_P9200.jpg',
-      description: 'Giày cầu lông Victor P9200 với thiết kế chống lật cổ chân, mang lại sự ổn định và thoải mái trong các trận đấu.',
-    ),
-  ];
-
-  // Logic lọc kết hợp giữa Danh mục và Tìm kiếm
+  // Lọc kết hợp giữa danh mục và tìm kiếm
   List<Product> get _filteredProducts {
-    return _allProducts.where((product) {
+    final query = _searchQuery.toLowerCase().trim();
+    return sampleProducts.where((product) {
       final matchesCategory =
-          _selectedCategory == 'Tất cả' ||
+          _selectedCategory == Categories.all ||
           product.category == _selectedCategory;
-      final matchesSearch = product.name.toLowerCase().contains(
-        _searchQuery.toLowerCase().trim(),
-      );
+      final matchesSearch = product.name.toLowerCase().contains(query);
       return matchesCategory && matchesSearch;
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final s = AppStrings.of(context);
+    final products = _filteredProducts; // tính một lần
+    final cs = Theme.of(context).colorScheme;
+
     return Scaffold(
-      // 1. AppBar tiêu đề + Nút Tìm kiếm & Giỏ hàng có Badge
-      appBar: AppBar(
-        title: const Text('ShopEasy'),
-        actions: [
-          // Nút Tìm kiếm (hiện tại chưa có chức năng)
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: Badge(
-              isLabelVisible: cartCount > 0,
-              label: Text('$cartCount'),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
-                ),
-                onPressed: _openCartScreen, // Gọi hàm mở giỏ hàng
-              ),
-            ),
-          ),
-        ],
-      ),
-
-      // Thân giao diện chính
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 8),
-
-            // 2. Ô tìm kiếm bo tròn
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
-                });
-              },
-            
-              decoration: InputDecoration(
-                hintText: s.searchHint,
-                prefixIcon: const Icon(Icons.search),
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                filled: true,
-                fillColor: Colors.grey.shade100,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            // 1. Header
+            SliverToBoxAdapter(
+              child: HomeHeader(
+                cartCount: cartCount,
+                onCartTap: _openCartScreen,
               ),
             ),
 
-            const SizedBox(height: 12),
-
-            // 3. Hàng Chip danh mục cuộn ngang
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: _categories.map((category) {
-                  final isSelected = _selectedCategory == category;
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: FilterChip(
-                      label: Text(category),
-                      selected: isSelected,
-                      selectedColor: Theme.of(context)
-                          .colorScheme
-                          .primaryContainer,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedCategory = category;
-                        });
-                      },
+            // 2. Ô tìm kiếm
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: TextField(
+                  onChanged: (value) => setState(() => _searchQuery = value),
+                  decoration: InputDecoration(
+                    hintText: s.searchHint,
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                  );
-                }).toList(),
+                    filled: true,
+                    fillColor: cs.surface, // đổi theo dark mode
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 12),
+            // 3. Danh mục dạng icon
+            SliverToBoxAdapter(
+              child: CategoryRow(
+                selected: _selectedCategory,
+                onSelected: (c) => setState(() => _selectedCategory = c),
+              ),
+            ),
 
-            // 4. Lưới sản phẩm 2 cột
-            Expanded(
-              child: _filteredProducts.isEmpty
-                  ? const Center(child: Text('Không tìm thấy sản phẩm nào'))
-                  : GridView.builder(
-                      itemCount: _filteredProducts.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisExtent: 320, // chiều cao cố định mỗi ô
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                      itemBuilder: (context, index) {
-                        final product = _filteredProducts[index];
+            // 4. Banner
+            const SliverToBoxAdapter(child: PromoBanner()),
+            const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetailScreen(
-                                  product: product,
-                                  onBuyNow: () {
-                                    Navigator.pop(
-                                      context,
-                                    ); // đóng trang chi tiết trước
-                                    _buyNow(
-                                      product,
-                                    ); // rồi thêm vào giỏ và mở giỏ hàng
-                                  },
-                                ),
-                              ),
-                            );
-                          },
-                          child: ProductCard(
-                            product: product,
-                            onBuyNow: () =>
-                                _buyNow(product), // 🛠 Gọi hàm Mua ngay
-                            onAddToCart: () =>
-                                _addToCart(product), // Gọi hàm Thêm vào giỏ
+            // 5. Lưới sản phẩm (hoặc thông báo rỗng)
+            if (products.isEmpty)
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(32),
+                  child: Center(child: Text('Không tìm thấy sản phẩm nào')),
+                ),
+              )
+            else
+              // Lưới sản phẩm
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                // SliverGrid: hiển thị danh sách sản phẩm dạng lưới
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    // 2 cột, chiều cao cố định, khoảng cách giữa các ô
+                    crossAxisCount: 2,
+                    // Chiều cao cố định cho mỗi ô (bao gồm cả padding)
+                    mainAxisExtent: 310,
+                    // Khoảng cách giữa các ô theo chiều ngang và dọc
+                    crossAxisSpacing: 10,
+                    // Khoảng cách giữa các ô theo chiều dọc
+                    mainAxisSpacing: 10,
+                  ),
+                  // SliverChildBuilderDelegate: tạo các ô sản phẩm theo chỉ số
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final product = products[index];
+                    // Khi bấm vào ô sản phẩm, mở trang chi tiết sản phẩm
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                              product: product,
+                              onBuyNow: () {
+                                Navigator.pop(context); // đóng trang chi tiết
+                                _buyNow(product);
+                              },
+                            ),
                           ),
                         );
                       },
-                    ),
-            ),
+                      
+                      child: ProductCard(
+                        product: product,
+                        onBuyNow: () => _buyNow(product),
+                        onAddToCart: () => _addToCart(product),
+                      ),
+                    );
+                  }, childCount: products.length),
+                ),
+              ),
+              //
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
           ],
         ),
       ),
 
-      // 5. Thanh điều hướng dưới
+      // 6. Thanh điều hướng dưới
       bottomNavigationBar: NavigationBar(
         selectedIndex: _navIndex,
         onDestinationSelected: (int index) {
@@ -333,7 +212,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             );
           } else {
             setState(() {
-              _navIndex = index; // đã sửa: cập nhật biến _navIndex
+              _navIndex = index;
             });
           }
         },
