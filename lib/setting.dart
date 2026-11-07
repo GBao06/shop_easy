@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_easy/dashboard/DashboardScreen.dart';
+import 'package:shop_easy/widgets/app_about.dart';
 import 'package:shop_easy/widgets/font_size_dialog.dart';
 import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/widgets/language_dialog.dart';
@@ -232,8 +233,8 @@ class _SettingPageState extends State<SettingPage> {
                         s.dashboard,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle:Text(
-                       s.revenueNumberOfOrdersReport,
+                      subtitle: Text(
+                        s.revenueNumberOfOrdersReport,
                         style: TextStyle(fontSize: 12),
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -278,9 +279,11 @@ class _SettingPageState extends State<SettingPage> {
                     () => showFontSizeDialog(context),
                   ),
                   const Divider(height: 1),
-                  settingItem(Icons.info_outline, s.aboutapp, () {
-                    print('Thông tin ứng dụng');
-                  }),
+                  settingItem(
+                    Icons.info_outline,
+                    s.about,
+                    () => showAppAboutDialog(context),
+                  ),
                   const Divider(height: 1),
                   logoutButton(),
                 ],

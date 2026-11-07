@@ -9,7 +9,7 @@ class AppStrings {
       AppStrings._(Localizations.localeOf(context).languageCode);
 
   static const _vi = {
-    'All':'Tất cả',
+    'All': 'Tất cả',
     'profile': 'Xem hồ sơ cá nhân',
     'settings': 'Cài đặt',
     'account': 'Tài khoản',
@@ -24,7 +24,9 @@ class AppStrings {
     'about_app': 'Về ứng dụng',
     'account_settings': 'Cài đặt tài khoản',
     'dashboard': 'Thống kê & Tổng quan',
-    'Revenue, number of orders & report': 'Doanh thu, số lượng đơn hàng & báo cáo',
+    'Revenue, number of orders & report':
+        'Doanh thu, số lượng đơn hàng & báo cáo',
+    'aboutDescription': 'Ứng dụng mua sắm đồ cầu lông: vợt, áo, quần, giày.',
   };
 
   static const _en = {
@@ -44,7 +46,8 @@ class AppStrings {
     'account_settings': 'Account settings',
     'dashboard': 'Dashboard',
     'Revenue, number of orders & report': 'Revenue, number of orders & report',
-
+    'aboutDescription':
+        'A shopping app for badminton gear: rackets, shirts, shorts, shoes.',
   };
 
   String _t(String key) => (_code == 'en' ? _en : _vi)[key] ?? key;
@@ -64,5 +67,8 @@ class AppStrings {
   String get aboutapp => _t('about_app');
   String get accountsettings => _t('account_settings');
   String get dashboard => _t('dashboard');
-  String get revenueNumberOfOrdersReport => _t('Revenue, number of orders & report');
+  String get revenueNumberOfOrdersReport =>
+      _t('Revenue, number of orders & report');
+  String get about => _t('about_app');
+  String get aboutDescription => _t('aboutDescription');
 }
