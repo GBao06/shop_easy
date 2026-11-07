@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/data/sample_products.dart';
 
 class CategoryRow extends StatelessWidget {
   final String selected;
   final ValueChanged<String> onSelected;
 
-  const CategoryRow({super.key, required this.selected, required this.onSelected});
-
-static const _items = [
-  ('Tất cả', Icons.apps),           
-  ('Vợt cầu lông', Icons.sports_tennis),
-  ('Áo cầu lông', Icons.checkroom),
-  ('Quần cầu lông', Icons.dry_cleaning),
-  ('Giày cầu lông', Icons.directions_run),
-];
+  const CategoryRow({
+    super.key,
+    required this.selected,
+    required this.onSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return Padding(
+    // SingleChildScrollView: cho phép cuộn ngang danh mục
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
-        children: _items.map((item) {
-          final (name, icon) = item;
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 12,
+        children: categoryList.map((item) {
+          final name = item.name;
+          final icon = item.icon;
           final isSelected = selected == name;
-          return Expanded(
+
+          return SizedBox(
+            width: 72,
+            // InkWell: tạo hiệu ứng nhấn và xử lý sự kiện chọn danh mục
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              // bấm lần nữa thì bỏ lọc
-              onTap: () => onSelected(isSelected ? 'Tất cả' : name),
+              onTap: () => onSelected(name),
               child: Column(
                 children: [
                   Container(
@@ -38,15 +42,19 @@ static const _items = [
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: cs.outlineVariant),
                     ),
-                    child: Icon(icon,
-                        color: isSelected ? cs.onPrimary : cs.primary),
+                    child: Icon(
+                      icon,
+                      color: isSelected ? cs.onPrimary : cs.primary,
+                    ),
                   ),
                   const SizedBox(height: 6),
-                  Text(name,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 12)),
+                  Text(
+                    name,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
             ),

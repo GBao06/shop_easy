@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/product/product.dart';
 import 'package:shop_easy/utils/format.dart';
 
@@ -20,14 +21,16 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // Tự động lấy dữ liệu trực tiếp từ đối tượng product
     final String imageUrl = product.imageUrl;
     final String title = product.name;
     final String currentPrice = formatPrice(product.price);
     final double? discount = product.discountPercent;
     final double? original = product.originalPrice;
-
+    final AppStrings s = AppStrings.of(context);
     return Card(
+      
       elevation: 2,
       clipBehavior: Clip.antiAlias, // Bo tròn đồng bộ nội dung bên trong
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -131,12 +134,14 @@ class ProductCard extends StatelessWidget {
                     // 5 ngôi sao đánh giá
                     Row(
                       children: List.generate(5, (index) {
+                        // Hiển thị ngôi sao đầy, nửa đầy hoặc rỗng dựa trên điểm đánh giá
                         if (index < product.rating.floor()) {
                           return const Icon(
                             Icons.star,
                             size: 12,
                             color: Colors.amber,
                           );
+                          // Nếu điểm đánh giá là số lẻ, hiển thị nửa ngôi sao cho phần thập phân
                         } else if (index < product.rating) {
                           return const Icon(
                             Icons.star_half,
@@ -144,6 +149,7 @@ class ProductCard extends StatelessWidget {
                             color: Colors.amber,
                           );
                         } else {
+                          // Hiển thị ngôi sao rỗng cho các ngôi sao còn lại
                           return const Icon(
                             Icons.star_border,
                             size: 12,
@@ -211,8 +217,8 @@ class ProductCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6),
                             ),
                           ),
-                          child: const Text(
-                            'Mua ngay',
+                          child:  Text(
+                            s.buy,
                             style: TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.bold,
@@ -238,8 +244,8 @@ class ProductCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6),
                             ),
                           ),
-                          child: const Text(
-                            'Thêm vào giỏ',
+                          child:  Text(
+                            s.addToCart,
                             style: TextStyle(
                               fontSize: 11,
                               color: Colors.indigo,

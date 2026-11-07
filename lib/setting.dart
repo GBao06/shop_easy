@@ -19,7 +19,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   bool nhanThongBao = true;
   bool dongBo = true;
-
+  AppStrings get s => AppStrings.of(context);
   // Widget để tạo một mục cài đặt với Switch
   Widget switchItem(
     IconData icon,
@@ -47,7 +47,6 @@ class _SettingPageState extends State<SettingPage> {
 
   // Widget để hiển thị thông tin hồ sơ người dùng
   Widget profileItem() {
-    final s = AppStrings.of(context);
     return ListTile(
       leading: const CircleAvatar(
         radius: 25,
@@ -81,14 +80,14 @@ class _SettingPageState extends State<SettingPage> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('Đăng xuất'),
-                  content: const Text('Bạn có chắc chắn muốn đăng xuất không?'),
+                  title:  Text(s.logout),
+                  content:  Text(s.logOutConfirmation),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('Hủy'),
+                      child: Text(s.cancel),
                     ),
                     TextButton(
                       onPressed: () {
@@ -101,8 +100,8 @@ class _SettingPageState extends State<SettingPage> {
                           (route) => false,
                         );
                       },
-                      child: const Text(
-                        'Đăng xuất',
+                      child:  Text(
+                        s.logout,
                         style: TextStyle(color: Colors.red),
                       ),
                     ),
@@ -112,8 +111,8 @@ class _SettingPageState extends State<SettingPage> {
             );
           },
           icon: const Icon(Icons.logout),
-          label: const Text(
-            'Đăng xuất',
+          label:  Text(
+            s.logout,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           style: ElevatedButton.styleFrom(

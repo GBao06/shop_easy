@@ -13,13 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Lắng nghe thay đổi chế độ sáng/tối
     return ValueListenableBuilder<bool>(
       valueListenable: isDarkModeNotifier,
       builder: (context, isDark, child) {
-        // 🟢 Lắng nghe thay đổi cỡ chữ
+        // Lắng nghe thay đổi cỡ chữ
         return ValueListenableBuilder<double>(
           valueListenable: textScaleNotifier,
           builder: (context, textScale, child) {
+            //  Lắng nghe thay đổi ngôn ngữ
             return ValueListenableBuilder<Locale>(
               valueListenable: localeNotifier,
               builder: (context, locale, _) {
@@ -57,9 +59,7 @@ class MyApp extends StatelessWidget {
                     colorSchemeSeed: const Color(0xFF203D67),
                     scaffoldBackgroundColor: const Color(0xFF121212),
                     appBarTheme: const AppBarTheme(
-                      backgroundColor: Color(
-                        0xFF1B2A44,
-                      ), // xanh đậm hơn, dịu mắt trong chế độ tối
+                      backgroundColor: Color(0xFF1B2A44),
                       foregroundColor: Colors.white,
                     ),
                     cardTheme: const CardThemeData(color: Color(0xFF1E1E1E)),

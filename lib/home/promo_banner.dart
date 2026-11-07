@@ -31,8 +31,11 @@ class _PromoBannerState extends State<PromoBanner> {
   @override
   void initState() {
     super.initState();
+    // Tạo timer để tự động chuyển slide mỗi 4 giây
     _timer = Timer.periodic(const Duration(seconds: 4), (_) {
+      // Nếu PageView chưa được tạo, không làm gì
       if (!_controller.hasClients) return;
+      // Chuyển sang slide tiếp theo, nếu là slide cuối thì quay lại slide đầu
       _controller.animateToPage(
         (_page + 1) % _slides.length,
         duration: const Duration(milliseconds: 400),
@@ -40,7 +43,7 @@ class _PromoBannerState extends State<PromoBanner> {
       );
     });
   }
-
+  // Hủy timer và controller khi widget bị hủy
   @override
   void dispose() {
     _timer?.cancel();
@@ -54,14 +57,17 @@ class _PromoBannerState extends State<PromoBanner> {
       children: [
         SizedBox(
           height: 150,
+          // PageView: hiển thị các slide quảng cáo
           child: PageView.builder(
             controller: _controller,
             itemCount: _slides.length,
             onPageChanged: (i) => setState(() => _page = i),
             itemBuilder: (context, i) {
               final s = _slides[i];
+              // Hiển thị từng slide với tiêu đề, phụ đề và màu nền gradient
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
+                //
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -89,6 +95,7 @@ class _PromoBannerState extends State<PromoBanner> {
           ),
         ),
         const SizedBox(height: 8),
+        // Dấu chấm chỉ thị slide hiện tại
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(_slides.length, (i) {

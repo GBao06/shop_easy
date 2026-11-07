@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/product/product.dart';
 import 'package:shop_easy/utils/format.dart';
 
@@ -10,12 +11,13 @@ class ProductDetailScreen extends StatelessWidget {
     required this.product,
     required this.onBuyNow,
   });
-
+  
   @override
   Widget build(BuildContext context) {
+    final AppStrings s = AppStrings.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chi tiết sản phẩm'),
+        title:  Text(product.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -71,8 +73,8 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   // Mô tả sản phẩm
-                  const Text(
-                    'Mô tả sản phẩm:',
+                  Text(
+                    s.productDescription,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -80,7 +82,7 @@ class ProductDetailScreen extends StatelessWidget {
                     product.description,
                     style: const TextStyle( height: 1.4),
                   ),
-                  const Text(
+                  Text(
                     'Sản phẩm chính hãng, bảo hành 12 tháng. Hỗ trợ đổi trả trong vòng 7 ngày nếu có lỗi từ nhà sản xuất.',
                     style: TextStyle( height: 1.4),
                   ),
@@ -109,8 +111,8 @@ class ProductDetailScreen extends StatelessWidget {
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 14),
           ),
-          child: const Text(
-            'MUA NGAY',
+          child:  Text(
+            s.buy,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),

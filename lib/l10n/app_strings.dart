@@ -27,6 +27,33 @@ class AppStrings {
     'Revenue, number of orders & report':
         'Doanh thu, số lượng đơn hàng & báo cáo',
     'aboutDescription': 'Ứng dụng mua sắm đồ cầu lông: vợt, áo, quần, giày.',
+    'noProductsFound':
+        'Không tìm thấy sản phẩm nào phù hợp với từ khóa tìm kiếm.',
+    'home': 'Trang chủ',
+    'category': 'Danh mục',
+    'setting': 'Cài đặt',
+    'buy': 'Mua',
+    'addToCart': 'Thêm vào giỏ hàng',
+    'productDetails': 'Chi tiết sản phẩm',
+    'productDescription': 'Mô tả sản phẩm:',
+    'undo': 'HOÀN TÁC',
+    'isempty': 'Giỏ hàng của bạn đang trống',
+    'isempty2': 'Hãy chọn thêm sản phẩm để tiếp tục mua sắm nhé!',
+    'Continue shopping': 'Tiếp tục mua sắm',
+    'subtotal': 'Tạm tính:',
+    'shipping': 'Phí vận chuyển',
+    'free': 'Miễn phí',
+    'total': 'Tổng cộng',
+    'checkout': 'Thanh toán',
+    'cart': 'Giỏ hàng của bạn',
+    'Easy Shopping': 'Mua sắm dễ dàng',
+    'logOutConfirmation': 'Bạn có chắc chắn muốn đăng xuất không?',
+    'order': 'Đơn hàng',
+    'revenue': 'Doanh thu',
+    'customers': 'Khách hàng',
+    'products': 'Sản phẩm',
+    'recentorders':'Đơn hàng gần đây',
+    'viewall': 'Xem tất cả'
   };
 
   static const _en = {
@@ -48,6 +75,32 @@ class AppStrings {
     'Revenue, number of orders & report': 'Revenue, number of orders & report',
     'aboutDescription':
         'A shopping app for badminton gear: rackets, shirts, shorts, shoes.',
+    'noProductsFound': 'No products found matching your search criteria.',
+    'home': 'Home',
+    'category': 'Category',
+    'setting': 'Setting',
+    'buy': 'Buy',
+    'addToCart': 'Add to cart',
+    'productDetails': 'Product Details',
+    'productDescription': 'Product Description:',
+    'undo': 'UNDO',
+    'isempty': 'Your shopping cart is empty',
+    'isempty2': 'Please pick more items to keep shopping!',
+    'Continue shopping': 'Continue shopping',
+    'subtotal': 'Subtotal:',
+    'shipping': 'Shipping Fee',
+    'free': 'Free',
+    'total': 'Total',
+    'checkout': 'Checkout',
+    'cart': 'Cart Items',
+    'Easy Shopping': 'Easy Shopping',
+    'logOutConfirmation': 'Are you sure you want to log out?',
+    'order': 'Order',
+    'revenue': 'Revenue',
+    'customers': 'Customers',
+    'products': 'Products',
+    'recentorders':'Recent Orders',
+    'viewall': 'View all'
   };
 
   String _t(String key) => (_code == 'en' ? _en : _vi)[key] ?? key;
@@ -71,4 +124,30 @@ class AppStrings {
       _t('Revenue, number of orders & report');
   String get about => _t('about_app');
   String get aboutDescription => _t('aboutDescription');
+  String get noProductsFound => _t('noProductsFound');
+  String get home => _t('home');
+  String get category => _t('category');
+  String get setting => _t('setting');
+  String get buy => _t('buy');
+  String get addToCart => _t('addToCart');
+  String get productDetails => _t('productDetails');
+  String get productDescription => _t('productDescription');
+  String get undo => _t('undo');
+  String get isempty => _t('isempty');
+  String get isempty2 => _t('isempy2');
+  String get continueShopping => _t('Continue shopping');
+  String get subtotal => _t('subtotal');
+  String get shipping => _t('shipping');
+  String get free => _t('free');
+  String get total => _t('total');
+  String get checkout => _t('checkout');
+  String get cart => _t('cart');
+  String get easyShopping => _t('Easy Shopping');
+  String get logOutConfirmation => _t('logOutConfirmation');
+  String get orders => _t('order');
+  String get ren => _t('revenue');
+  String get customer => _t('customers');
+  String get products => _t('products');
+  String get recent => _t('recentorders');
+  String get viewall => _t('viewall');
 }

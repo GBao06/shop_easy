@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/utils/format.dart';
 
 // Model mô tả sản phẩm trong giỏ
@@ -55,18 +56,19 @@ class _CartScreenState extends State<CartScreen> {
   void _removeItem(int index) {
     final removedItem = _cartItems[index];
     final removedIndex = index;
-
+    final AppStrings s = AppStrings.of(context);
     setState(() {
       _cartItems.removeAt(index);
     });
     // Hiển thị SnackBar thông báo đã xóa sản phẩm
     ScaffoldMessenger.of(context).clearSnackBars();
     // Hiển thị SnackBar thông báo đã xóa sản phẩm
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Đã xóa "${removedItem.name}"'),
         action: SnackBarAction(
-          label: 'HOÀN TÁC',
+          label: s.undo,
           textColor: const Color.fromARGB(255, 255, 59, 59),
           onPressed: () {
             setState(() {
@@ -96,10 +98,11 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final AppStrings s = AppStrings.of(context);
     // Scaffold hiển thị giỏ hàng
     return Scaffold(
       appBar: AppBar(
-        title: Text('Giỏ hàng (${_cartItems.length})'),
+        title: Text(s.cart),
         elevation: 0,
       ),
       // Hiển thị danh sách sản phẩm hoặc thông báo giỏ hàng trống
@@ -109,6 +112,7 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildEmptyCart() {
     // Hiển thị khi giỏ hàng trống
+    final AppStrings s = AppStrings.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -121,13 +125,13 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Giỏ hàng của bạn đang trống',
+             Text(
+              s.isempty,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              'Hãy chọn thêm sản phẩm để tiếp tục mua sắm nhé!',
+              s.isempty2,
               style: TextStyle(color: Colors.grey.shade600),
             ),
             const SizedBox(height: 24),
@@ -144,8 +148,8 @@ class _CartScreenState extends State<CartScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text(
-                'Tiếp tục mua sắm',
+              child:  Text(
+                s.continueShopping,
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -156,6 +160,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildCartList() {
+    final AppStrings s = AppStrings.of(context);
     // Hiển thị danh sách sản phẩm trong giỏ hàng
     return Column(
       children: [
@@ -312,7 +317,7 @@ class _CartScreenState extends State<CartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Tạm tính:', style: TextStyle(color: Colors.grey)),
+                  Text(s.subtotal, style: TextStyle(color: Colors.grey)),
                   Text(
                     formatPrice(_subtotal),
                     style: const TextStyle(fontWeight: FontWeight.w500),
@@ -324,12 +329,12 @@ class _CartScreenState extends State<CartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Phí vận chuyển:',
+                  Text(
+                    s.shipping,
                     style: TextStyle(color: Colors.grey),
                   ),
                   Text(
-                    _shippingFee == 0 ? 'Miễn phí' : formatPrice(_shippingFee),
+                    _shippingFee == 0 ? s.free : formatPrice(_shippingFee),
                     style: TextStyle(
                       color: _shippingFee == 0
                           ? const Color.fromARGB(255, 255, 0, 0)
@@ -346,8 +351,8 @@ class _CartScreenState extends State<CartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Tổng cộng:',
+                  Text(
+                    s.total,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
@@ -374,8 +379,8 @@ class _CartScreenState extends State<CartScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: const Text(
-                    'Thanh toán',
+                  child: Text(
+                    s.checkout,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),

@@ -96,10 +96,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     final products = _filteredProducts; // tính một lần
     final cs = Theme.of(context).colorScheme;
-
+    // Scaffold: khung chính của màn hình, có AppBar, body, bottomNavigationBar
     return Scaffold(
       body: SafeArea(
+        // Nội dung chính: danh sách sản phẩm
         child: CustomScrollView(
+          // Slivers: các phần tử cuộn được, có thể là SliverToBoxAdapter (khối cố định) hoặc SliverGrid (lưới)
           slivers: [
             // 1. Header
             SliverToBoxAdapter(
@@ -143,10 +145,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
             // 5. Lưới sản phẩm (hoặc thông báo rỗng)
             if (products.isEmpty)
-              const SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(32),
-                  child: Center(child: Text('Không tìm thấy sản phẩm nào')),
+                  padding: const EdgeInsets.all(32),
+                  child: Center(child: Text(s.noProductsFound)),
                 ),
               )
             else
@@ -158,11 +160,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     // 2 cột, chiều cao cố định, khoảng cách giữa các ô
                     crossAxisCount: 2,
-                    // Chiều cao cố định cho mỗi ô (bao gồm cả padding)
                     mainAxisExtent: 310,
                     // Khoảng cách giữa các ô theo chiều ngang và dọc
                     crossAxisSpacing: 10,
-                    // Khoảng cách giữa các ô theo chiều dọc
                     mainAxisSpacing: 10,
                   ),
                   // SliverChildBuilderDelegate: tạo các ô sản phẩm theo chỉ số
@@ -216,21 +216,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
             });
           }
         },
-        destinations: const [
+        destinations:[
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
-            label: 'Trang chủ',
+            label: s.home,
           ),
           NavigationDestination(
             icon: Icon(Icons.grid_view_outlined),
             selectedIcon: Icon(Icons.grid_view),
-            label: 'Danh mục',
+            label: s.category,
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
-            label: 'Cài đặt',
+            label: s.settings,
           ),
         ],
       ),

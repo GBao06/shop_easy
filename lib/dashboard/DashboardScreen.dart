@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_easy/l10n/app_strings.dart';
 
 // Model mô tả đơn hàng mẫu
 class OrderItem {
@@ -62,11 +63,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStrings s = AppStrings.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tổng quan'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text(s.dashboard), elevation: 0),
       // 2. Dùng LayoutBuilder để tự động đáp ứng responsive
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -92,25 +91,25 @@ class DashboardScreen extends StatelessWidget {
                       icon: Icons.shopping_bag_outlined,
                       iconColor: Colors.blue,
                       value: '128',
-                      label: 'Đơn hàng',
+                      label: s.orders,
                     ),
                     _buildStatCard(
                       icon: Icons.attach_money,
                       iconColor: Colors.green,
                       value: '45.8M',
-                      label: 'Doanh thu',
+                      label: s.ren,
                     ),
                     _buildStatCard(
                       icon: Icons.people_outline,
                       iconColor: Colors.orange,
                       value: '1,240',
-                      label: 'Khách hàng',
+                      label: s.customer,
                     ),
                     _buildStatCard(
                       icon: Icons.inventory_2_outlined,
                       iconColor: Colors.purple,
                       value: '86',
-                      label: 'Sản phẩm',
+                      label: s.products,
                     ),
                   ]),
                 ),
@@ -119,12 +118,15 @@ class DashboardScreen extends StatelessWidget {
               // 3. Tiêu đề mục "Đơn hàng gần đây" có nút "Xem tất cả" căn phải
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 4.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Đơn hàng gần đây',
+                       Text(
+                        s.recent,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -132,7 +134,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text('Xem tất cả'),
+                        child:  Text(s.viewall),
                       ),
                     ],
                   ),
@@ -143,71 +145,68 @@ class DashboardScreen extends StatelessWidget {
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final orders = _getSampleOrders();
-                      final order = orders[index];
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final orders = _getSampleOrders();
+                    final order = orders[index];
 
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 8.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 8.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 4.0,
                         ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 4.0,
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.indigo.shade50,
+                          child: const Icon(
+                            Icons.receipt_long,
+                            color: Color(0xFF203D67),
                           ),
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.indigo.shade50,
-                            child: const Icon(
-                              Icons.receipt_long,
-                              color: Color(0xFF203D67),
+                        ),
+                        title: Text(
+                          order.orderCode,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text('${order.customerName} • ${order.date}'),
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              order.amount,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                          title: Text(
-                            order.orderCode,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text('${order.customerName} • ${order.date}'),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                order.amount,
-                                style: const TextStyle(
+                            const SizedBox(height: 4),
+                            // Nhãn trạng thái với màu nền và màu chữ khác nhau
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: order.statusColor.withOpacity(0.12),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                order.status,
+                                style: TextStyle(
+                                  color: order.statusColor,
+                                  fontSize: 11,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14,
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              // Nhãn trạng thái với màu nền và màu chữ khác nhau
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 3,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: order.statusColor.withOpacity(0.12),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  order.status,
-                                  style: TextStyle(
-                                    color: order.statusColor,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                    childCount: _getSampleOrders().length,
-                  ),
+                      ),
+                    );
+                  }, childCount: _getSampleOrders().length),
                 ),
               ),
             ],
@@ -226,9 +225,7 @@ class DashboardScreen extends StatelessWidget {
   }) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -248,19 +245,13 @@ class DashboardScreen extends StatelessWidget {
             // Con số lớn
             Text(
               value,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 2),
             // Nhãn chữ nhỏ
             Text(
               label,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
           ],
         ),

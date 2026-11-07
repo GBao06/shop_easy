@@ -1,14 +1,36 @@
+import 'package:flutter/material.dart' show IconData, Icons;
 import 'package:shop_easy/product/product.dart';
 
-/// Tên danh mục dùng chung cho dữ liệu, bộ lọc và CategoryRow.
 class Categories {
   static const all = 'Tất cả';
   static const racket = 'Vợt cầu lông';
   static const shirt = 'Áo cầu lông';
   static const shorts = 'Quần cầu lông';
   static const shoes = 'Giày cầu lông';
+  static const socks = 'Tất cả các loại vớ';
+  static const wristband = 'Băng cổ tay';
+  static const accessory = 'Phụ kiện khác';
+  static const other = 'Khác';
 }
 
+/// Một mục trong hàng danh mục: tên (cũng là giá trị lọc) và biểu tượng.
+class CategoryInfo {
+  final String name;
+  final IconData icon;
+  const CategoryInfo(this.name, this.icon);
+}
+
+const List<CategoryInfo> categoryList = [
+  CategoryInfo(Categories.all, Icons.apps),
+  CategoryInfo(Categories.racket, Icons.sports_tennis),
+  CategoryInfo(Categories.shirt, Icons.checkroom),
+  CategoryInfo(Categories.shorts, Icons.dry_cleaning),
+  CategoryInfo(Categories.shoes, Icons.directions_run),
+  CategoryInfo(Categories.wristband, Icons.back_hand),
+  CategoryInfo(Categories.socks, Icons.checkroom),
+  CategoryInfo(Categories.accessory, Icons.extension),
+  CategoryInfo(Categories.other, Icons.more_horiz),
+];
 /// Dữ liệu sản phẩm mẫu.
 final List<Product> sampleProducts = [
   // --- VỢT CẦU LÔNG ---
