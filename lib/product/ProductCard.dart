@@ -6,7 +6,6 @@ import 'package:shop_easy/utils/format.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
   final bool isFavorite;
-  final VoidCallback? onBuyNow;
   final VoidCallback? onAddToCart;
   final VoidCallback? onFavoriteToggle;
 
@@ -14,23 +13,20 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.product,
     this.isFavorite = false,
-    this.onBuyNow,
     this.onAddToCart,
     this.onFavoriteToggle,
   });
 
   @override
   Widget build(BuildContext context) {
-
     // Tự động lấy dữ liệu trực tiếp từ đối tượng product
     final String imageUrl = product.imageUrl;
     final String title = product.name;
     final String currentPrice = formatPrice(product.price);
-    final double? discount = product.discountPercent;
+    final int? discount = product.discountPercent;
     final double? original = product.originalPrice;
     final AppStrings s = AppStrings.of(context);
     return Card(
-      
       elevation: 2,
       clipBehavior: Clip.antiAlias, // Bo tròn đồng bộ nội dung bên trong
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -166,16 +162,25 @@ class ProductCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     // Số lượt đánh giá
-                    Text(
-                      '(${product.reviewCount})',
-                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                    Flexible(
+                      child: Text(
+                        '(${product.reviewCount})',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 6),
 
                 // 5. Giá hiện tại và Giá gốc
-                Row(
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 2,
                   children: [
                     // Giá hiện tại
                     Text(
@@ -186,10 +191,8 @@ class ProductCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(width: 6),
                     // Giá gốc (nếu có)
-                    if (product.originalPrice != null &&
-                        original! > product.price)
+                    if (original != null && original > product.price)
                       Text(
                         formatPrice(original),
                         style: const TextStyle(
@@ -203,53 +206,22 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    // 1. Nút "Mua ngay" (Chiếm 50%)
                     Expanded(
                       child: SizedBox(
                         height: 34,
                         child: FilledButton(
-                          onPressed: onBuyNow,
-                          style: FilledButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            backgroundColor: Colors
-                                .deepOrange, // Màu cam nổi bật cho Mua ngay
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                          child:  Text(
-                            s.buy,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(width: 6), // Khoảng cách giữa 2 nút
-                    // 2. Nút "Thêm vào giỏ" (Chiếm 50%)
-                    Expanded(
-                      child: SizedBox(
-                        height: 34,
-                        child: OutlinedButton(
                           onPressed: onAddToCart,
                           style: OutlinedButton.styleFrom(
                             padding: EdgeInsets.zero,
-                            side: const BorderSide(
-                              color: Colors.indigo,
-                            ), // Viền viền màu chủ đạo
+                            backgroundColor: Colors.deepOrange,
+                            foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),
                           ),
-                          child:  Text(
+                          child: Text(
                             s.addToCart,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.indigo,
-                            ),
+                            style: TextStyle(fontSize: 11, color: Colors.white),
                           ),
                         ),
                       ),

@@ -33,7 +33,7 @@ class AppStrings {
     'category': 'Danh mục',
     'setting': 'Cài đặt',
     'buy': 'Mua',
-    'addToCart': 'Thêm vào giỏ hàng',
+    'addToCart': 'Thêm vào giỏ ',
     'productDetails': 'Chi tiết sản phẩm',
     'productDescription': 'Mô tả sản phẩm:',
     'undo': 'HOÀN TÁC',
@@ -55,9 +55,8 @@ class AppStrings {
     'recentorders': 'Đơn hàng gần đây',
     'viewall': 'Xem tất cả',
     'opencart': 'Xem giỏ',
-    'added': 'Đã thêm',
-    'toyourcart': 'vào giỏ hàng!',
-    'deleted':'Đã xóa ',
+
+    'deleted': 'Đã xóa ',
   };
 
   static const _en = {
@@ -106,9 +105,8 @@ class AppStrings {
     'recentorders': 'Recent Orders',
     'viewall': 'View all',
     'opencart': 'Open Cart',
-    'added': 'Added',
-    'toyourcart': 'to your cart!',
-    'deleted':'Deleted',
+
+    'deleted': 'Deleted',
   };
 
   String _t(String key) => (_code == 'en' ? _en : _vi)[key] ?? key;
@@ -159,7 +157,9 @@ class AppStrings {
   String get recent => _t('recentorders');
   String get viewall => _t('viewall');
   String get opencart => _t('opencart');
-   String get added => _t('added');
-   String get toyourcart => _t('toyourcart');
-   String get del => _t('deleted');
+
+  String get del => _t('deleted');
+  String removedItem(String name) =>
+      _code == 'en' ? 'Removed "$name"' : 'Đã xóa "$name"';
+  String addProduct(String name) => _code == 'en' ? 'Added "$name" to your cart!' : 'Đã thêm "$name" vào giỏ hàng của bạn! '; 
 }

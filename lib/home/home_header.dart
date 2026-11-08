@@ -5,11 +5,15 @@ class HomeHeader extends StatelessWidget {
   final int cartCount;
   final VoidCallback onCartTap;
 
-  const HomeHeader({super.key, required this.cartCount, required this.onCartTap});
+  const HomeHeader({
+    super.key,
+    required this.cartCount,
+    required this.onCartTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-      final AppStrings s = AppStrings.of(context);
+    final AppStrings s = AppStrings.of(context);
     final cs = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
@@ -22,11 +26,18 @@ class HomeHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Shop Easy',
-                    style: TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold, color: cs.primary)),
-                Text(s.easyShopping,
-                    style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  'Shop Easy',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: cs.primary,
+                  ),
+                ),
+                Text(
+                  s.easyShopping,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
           ),

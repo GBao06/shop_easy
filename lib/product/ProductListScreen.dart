@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/cart/CartScreen.dart';
+import 'package:shop_easy/cart/cartScreen.dart';
 import 'package:shop_easy/data/sample_products.dart';
 import 'package:shop_easy/home/category_row.dart';
 import 'package:shop_easy/home/home_header.dart';
 import 'package:shop_easy/home/promo_banner.dart';
 import 'package:shop_easy/l10n/app_strings.dart';
-import 'package:shop_easy/product/ProductCard.dart';
-import 'package:shop_easy/product/ProductDetailScreen.dart';
+import 'package:shop_easy/product/productCard.dart';
+import 'package:shop_easy/product/productDetailScreen.dart';
 import 'package:shop_easy/product/product.dart';
 import 'package:shop_easy/setting.dart';
+import 'package:shop_easy/cart/cart_item.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -36,14 +37,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       if (index >= 0) {
         if (increment) _cartItems[index].quantity++;
       } else {
-        _cartItems.add(
-          CartItem(
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            imageUrl: product.imageUrl,
-          ),
-        );
+        _cartItems.add(CartItem(product: product));
       }
     });
   }
@@ -61,7 +55,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ..clearSnackBars()
       ..showSnackBar(
         SnackBar(
-          content: Text(s.added+  " ${product.name} " + s.toyourcart),
+          content: Text(s.addProduct(product.name)),
           duration: const Duration(seconds: 2),
           action: SnackBarAction(label: s.opencart, onPressed: _openCartScreen),
         ),
@@ -180,21 +174,24 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                 Navigator.pop(context); // đóng trang chi tiết
                                 _buyNow(product);
                               },
+                              onAddToCart: () {
+                                Navigator.pop(context); // đóng trang chi tiết
+                                _addToCart(product);
+                              },
                             ),
                           ),
                         );
                       },
-                      
+
                       child: ProductCard(
                         product: product,
-                        onBuyNow: () => _buyNow(product),
                         onAddToCart: () => _addToCart(product),
                       ),
                     );
                   }, childCount: products.length),
                 ),
               ),
-              //
+            //
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
           ],
         ),
@@ -216,7 +213,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             });
           }
         },
-        destinations:[
+        destinations: [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),

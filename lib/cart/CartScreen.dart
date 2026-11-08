@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_easy/l10n/app_strings.dart';
 import 'package:shop_easy/utils/format.dart';
-
-// Model mô tả sản phẩm trong giỏ
-class CartItem {
-  final String id;
-  final String name;
-  final double price;
-  final String imageUrl;
-  int quantity;
-
-  CartItem({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.imageUrl,
-    this.quantity = 1,
-  });
-}
+import 'package:shop_easy/cart/cart_item.dart';
 
 class CartScreen extends StatefulWidget {
   final List<CartItem> cartItems; // 1. Thêm biến nhận dữ liệu
@@ -66,7 +50,7 @@ class _CartScreenState extends State<CartScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(s.del + " ${removedItem.name}"),
+        content: Text(s.removedItem(removedItem.name)),
         action: SnackBarAction(
           label: s.undo,
           textColor: const Color.fromARGB(255, 255, 59, 59),
@@ -98,13 +82,10 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-     final AppStrings s = AppStrings.of(context);
+    final AppStrings s = AppStrings.of(context);
     // Scaffold hiển thị giỏ hàng
     return Scaffold(
-      appBar: AppBar(
-        title: Text(s.cart),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text(s.cart), elevation: 0),
       // Hiển thị danh sách sản phẩm hoặc thông báo giỏ hàng trống
       body: _cartItems.isEmpty ? _buildEmptyCart() : _buildCartList(),
     );
@@ -125,15 +106,12 @@ class _CartScreenState extends State<CartScreen> {
               color: Colors.grey.shade400,
             ),
             const SizedBox(height: 16),
-             Text(
+            Text(
               s.isempty,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text(
-              s.isempty2,
-              style: TextStyle(color: Colors.grey.shade600),
-            ),
+            Text(s.isempty2, style: TextStyle(color: Colors.grey.shade600)),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
@@ -148,10 +126,7 @@ class _CartScreenState extends State<CartScreen> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child:  Text(
-                s.continueShopping,
-                style: TextStyle(fontSize: 16),
-              ),
+              child: Text(s.continueShopping, style: TextStyle(fontSize: 16)),
             ),
           ],
         ),
@@ -329,10 +304,7 @@ class _CartScreenState extends State<CartScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    s.shipping,
-                    style: TextStyle(color: Colors.grey),
-                  ),
+                  Text(s.shipping, style: TextStyle(color: Colors.grey)),
                   Text(
                     _shippingFee == 0 ? s.free : formatPrice(_shippingFee),
                     style: TextStyle(

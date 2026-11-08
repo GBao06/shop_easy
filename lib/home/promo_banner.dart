@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class _Slide {
@@ -20,12 +21,18 @@ class _PromoBannerState extends State<PromoBanner> {
   int _page = 0;
 
   static const _slides = [
-    _Slide('Flash Sale Hàng Ngày', 'Giảm giá đến 50%',
-        [Color(0xFF203D67), Color(0xFF3A7CA5)]),
-    _Slide('Giày chính hãng', 'Ưu đãi đến 30%',
-        [Color(0xFFE65100), Color(0xFFFFA726)]),
-    _Slide('Miễn phí vận chuyển', 'Cho đơn từ 500.000 đ',
-        [Color(0xFF2E7D32), Color(0xFF66BB6A)]),
+    _Slide('Flash Sale Hàng Ngày', 'Giảm giá đến 50%', [
+      Color(0xFF203D67),
+      Color(0xFF3A7CA5),
+    ]),
+    _Slide('Giày chính hãng', 'Ưu đãi đến 30%', [
+      Color(0xFFE65100),
+      Color(0xFFFFA726),
+    ]),
+    _Slide('Miễn phí vận chuyển', 'Cho đơn từ 500.000 đ', [
+      Color(0xFF2E7D32),
+      Color(0xFF66BB6A),
+    ]),
   ];
 
   @override
@@ -43,6 +50,7 @@ class _PromoBannerState extends State<PromoBanner> {
       );
     });
   }
+
   // Hủy timer và controller khi widget bị hủy
   @override
   void dispose() {
@@ -78,15 +86,22 @@ class _PromoBannerState extends State<PromoBanner> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(s.title,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold)),
+                      Text(
+                        s.title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(s.subtitle,
-                          style: const TextStyle(
-                              color: Colors.white70, fontSize: 15)),
+                      Text(
+                        s.subtitle,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 15,
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/dashboard/DashboardScreen.dart';
+import 'package:shop_easy/dashboard/dashboardScreen.dart';
 import 'package:shop_easy/widgets/app_about.dart';
 import 'package:shop_easy/widgets/font_size_dialog.dart';
 import 'package:shop_easy/l10n/app_strings.dart';
