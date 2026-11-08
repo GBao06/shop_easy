@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'theme/theme_controller.dart';
-import 'product/ProductListScreen.dart'; // Màn hình chính ứng dụng
+import 'product/productListScreen.dart'; // Màn hình chính ứng dụng
 
 void main() {
   runApp(const MyApp());

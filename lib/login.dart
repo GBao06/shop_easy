@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:shop_easy/product/ProductListScreen.dart';
+import 'package:shop_easy/product/productListScreen.dart';
 
 
 class LoginPage extends StatefulWidget {
