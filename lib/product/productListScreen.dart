@@ -57,6 +57,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         SnackBar(
           content: Text(s.addProduct(product.name)),
           duration: const Duration(seconds: 2),
+          persist: false,
           action: SnackBarAction(label: s.opencart, onPressed: _openCartScreen),
         ),
       );

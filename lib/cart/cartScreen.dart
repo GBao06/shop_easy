@@ -44,24 +44,25 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {
       _cartItems.removeAt(index);
     });
-    // Hiển thị SnackBar thông báo đã xóa sản phẩm
-    ScaffoldMessenger.of(context).clearSnackBars();
-    // Hiển thị SnackBar thông báo đã xóa sản phẩm
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(s.removedItem(removedItem.name)),
-        action: SnackBarAction(
-          label: s.undo,
-          textColor: const Color.fromARGB(255, 255, 59, 59),
-          onPressed: () {
-            setState(() {
-              _cartItems.insert(removedIndex, removedItem);
-            });
-          },
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(s.removedItem(removedItem.name)),
+          duration: const Duration(seconds: 3),
+          persist: false, // tự tắt sau 3 giây dù có nút Hoàn tác
+          action: SnackBarAction(
+            label: s.undo,
+            textColor: const Color.fromARGB(255, 255, 59, 59),
+            onPressed: () {
+              setState(() {
+                _cartItems.insert(removedIndex, removedItem);
+              });
+            },
+          ),
         ),
-      ),
-    );
+      );
   }
 
   void _incrementQuantity(CartItem item) {
