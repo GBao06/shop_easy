@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shop_easy/core/theme/theme_controller.dart';
+import 'package:shop_easy/features/auth/presentation/login.dart';
 
-import 'theme/theme_controller.dart';
-import 'product/productListScreen.dart'; // Màn hình chính ứng dụng
+
 
 void main() {
   runApp(const MyApp());
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
                       child: child!,
                     );
                   },
-                  home: const ProductListScreen(),
+                  home: const LoginPage(),
                 );
               },
             );

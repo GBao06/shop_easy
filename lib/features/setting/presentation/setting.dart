@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_easy/dashboard/dashboardScreen.dart';
-import 'package:shop_easy/widgets/app_about.dart';
-import 'package:shop_easy/widgets/font_size_dialog.dart';
-import 'package:shop_easy/l10n/app_strings.dart';
-import 'package:shop_easy/widgets/language_dialog.dart';
+import 'package:shop_easy/shared/widgets/app_about.dart';
+import 'package:shop_easy/shared/widgets/font_size_dialog.dart';
+import 'package:shop_easy/core/l10n/app_strings.dart';
+import 'package:shop_easy/shared/widgets/language_dialog.dart';
 
-import 'ProfilePage.dart';
-import 'theme/theme_controller.dart';
-import 'login.dart';
+import '../../profile/presentation/ProfilePage.dart';
+import '../../../core/theme/theme_controller.dart';
+import '../../auth/presentation/login.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/l10n/app_strings.dart';
-import 'package:shop_easy/theme/theme_controller.dart';
+import 'package:shop_easy/core/l10n/app_strings.dart';
+import 'package:shop_easy/core/theme/theme_controller.dart';
 
 void showLanguageDialog(BuildContext context) {
   final s = AppStrings.of(context);

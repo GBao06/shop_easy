@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/theme/theme_controller.dart';
+import 'package:shop_easy/core/theme/theme_controller.dart';
 
 void showFontSizeDialog(BuildContext context) {
   showDialog(

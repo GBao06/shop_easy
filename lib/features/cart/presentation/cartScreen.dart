@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/l10n/app_strings.dart';
-import 'package:shop_easy/utils/format.dart';
-import 'package:shop_easy/cart/cart_item.dart';
+import 'package:shop_easy/core/l10n/app_strings.dart';
+import 'package:shop_easy/core/utils/format.dart';
+import 'package:shop_easy/features/cart/data/model/cart_item.dart';
 
 class CartScreen extends StatefulWidget {
   final List<CartItem> cartItems; // 1. Thêm biến nhận dữ liệu
@@ -149,7 +149,7 @@ class _CartScreenState extends State<CartScreen> {
               final item = _cartItems[index];
               // Widget cho mỗi mục trong danh sách
               return Dismissible(
-                key: Key(item.id),
+                key: Key(item.id as String),
                 direction: DismissDirection.endToStart,
                 background: Container(
                   alignment: Alignment.centerRight,

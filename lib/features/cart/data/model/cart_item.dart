@@ -1,4 +1,4 @@
-import 'package:shop_easy/product/product.dart';
+import 'package:shop_easy/features/product/data/model/product.dart';
 
 // Model mô tả một sản phẩm trong giỏ hàng
 class CartItem {
@@ -8,7 +8,7 @@ class CartItem {
   CartItem({required this.product, this.quantity = 1});
 
   // Các getter để code khác đọc nhanh thông tin sản phẩm
-  String get id => product.id;
+  int get id => product.id;
   String get name => product.name;
   double get price => product.price;
   String get imageUrl => product.imageUrl;

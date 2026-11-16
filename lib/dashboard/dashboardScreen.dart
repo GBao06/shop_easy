@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/l10n/app_strings.dart';
+import 'package:shop_easy/core/l10n/app_strings.dart';
 
 // Model mô tả đơn hàng mẫu
 class OrderItem {
