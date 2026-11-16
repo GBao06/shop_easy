@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/features/cart/presentation/cartScreen.dart';
+import 'package:shop_easy/features/cart/presentation/cart_screen.dart';
 import 'package:shop_easy/features/home/presentation/widgets/category_row.dart';
 import 'package:shop_easy/features/home/presentation/widgets/home_header.dart';
 import 'package:shop_easy/features/home/presentation/widgets/promo_banner.dart';
 import 'package:shop_easy/core/l10n/app_strings.dart';
 import 'package:shop_easy/features/product/data/model/product.dart';
 import 'package:shop_easy/features/product/data/product_service.dart';
-import 'package:shop_easy/features/product/presentation/screens/productDetailScreen.dart';
-import 'package:shop_easy/features/product/presentation/widgets/productCard.dart';
+import 'package:shop_easy/features/product/presentation/screens/product_detail_screen.dart';
+import 'package:shop_easy/features/product/presentation/widgets/product_card.dart';
 
 import 'package:shop_easy/features/setting/presentation/setting.dart';
 import 'package:shop_easy/features/cart/data/model/cart_item.dart';
@@ -46,7 +46,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     });
     try {
       final results = await Future.wait([
-        _service.getProducts(limit: 100),
+        _service.getProducts(limit: 10),
         _service.getCategories(),
       ]);
       if (!mounted) return;

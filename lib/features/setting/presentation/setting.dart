@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shop_easy/dashboard/dashboardScreen.dart';
+import 'package:shop_easy/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:shop_easy/shared/widgets/app_about.dart';
 import 'package:shop_easy/shared/widgets/font_size_dialog.dart';
 import 'package:shop_easy/core/l10n/app_strings.dart';
 import 'package:shop_easy/shared/widgets/language_dialog.dart';
 
-import '../../profile/presentation/ProfilePage.dart';
+import '../../profile/presentation/profile_page.dart';
 import '../../../core/theme/theme_controller.dart';
 import '../../auth/presentation/login.dart';
 
@@ -95,7 +95,7 @@ class _SettingPageState extends State<SettingPage> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
+                            builder: (context) => const LoginScreen(),
                           ),
                           (route) => false,
                         );
